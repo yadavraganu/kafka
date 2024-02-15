@@ -8,11 +8,11 @@ load_dotenv(dotenv_path, verbose=True)
 conf = {'bootstrap.servers': os.environ['BOOTSTRAP_SERVERS']}
 try:
     admin = admin.AdminClient(conf)
-    print("=" * 50)
+    print("=" * 150)
     topic_list = admin.list_topics().topics
     topic_list = str(topic_list).split(", '")
     for i in topic_list:
         print(i.replace('{','').replace("'",''))
-    print("=" * 50)
+    print("=" * 150)
 except Exception as err:
     print(f'Error while creating listing topics - {err}')
