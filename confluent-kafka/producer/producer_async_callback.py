@@ -26,4 +26,5 @@ try:
 except Exception as e:
     print(f'Error while sending message.Error is : {e}')
 finally:
+    print('Flushing Producer.............')
     producer.flush()

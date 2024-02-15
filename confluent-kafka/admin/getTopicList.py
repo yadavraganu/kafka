@@ -1,16 +1,18 @@
-from confluent_kafka.admin import AdminClient
-from pprint import pprint
+import os
+from confluent_kafka import admin
+from dotenv import load_dotenv
 
-conf = {'bootstrap.servers': 'localhost:8098'}
+dotenv_path = os.path.join(os.path.dirname(__file__).split('admin')[0], '.env')
+load_dotenv(dotenv_path, verbose=True)
+
+conf = {'bootstrap.servers': os.environ['BOOTSTRAP_SERVERS']}
 try:
-    admin = AdminClient(conf)
-    pprint("=" * 50)
+    admin = admin.AdminClient(conf)
+    print("=" * 50)
     topic_list = admin.list_topics().topics
-    i = 0
-    for t in topic_list:
-        i += 1
-        pprint(f'Topic {i} : {t}')
-    pprint("=" * 50)
+    topic_list = str(topic_list).split(", '")
+    for i in topic_list:
+        print(i.replace('{','').replace("'",''))
+    print("=" * 50)
 except Exception as err:
-    pprint(f'Error occurred while connecting broker - {err}')
-
+    print(f'Error while creating listing topics - {err}')
