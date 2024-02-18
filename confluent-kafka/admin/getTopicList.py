@@ -1,11 +1,9 @@
-import os
+import sys
+sys.path.append("..")
+from config.config_parser import get_config
 from confluent_kafka import admin
-from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(__file__).split('admin')[0], '.env')
-load_dotenv(dotenv_path, verbose=True)
-
-conf = {'bootstrap.servers': os.environ['BOOTSTRAP_SERVERS']}
+conf = {'bootstrap.servers': get_config('BOOTSTRAP_SERVERS')}
 try:
     admin = admin.AdminClient(conf)
     print("=" * 150)

@@ -1,19 +1,19 @@
+import sys
+sys.path.append("..")
+from config.config_parser import get_config
 from faker import Faker
-import os
-from dotenv import load_dotenv
 from confluent_kafka import Producer, KafkaException
-dotenv_path = os.path.join(os.path.dirname(__file__).split('producer')[0], '.env')
-load_dotenv(dotenv_path, verbose=True)
+
 
 cf = Faker()
-kafka_conf = {'bootstrap.servers': os.environ['BOOTSTRAP_SERVERS'], 'acks': 'all', 'compression.type': 'gzip'}
+kafka_conf = {'bootstrap.servers': get_config('BOOTSTRAP_SERVERS'), 'acks': 'all', 'compression.type': 'gzip'}
 
 try:
     producer = Producer(kafka_conf)
     producer.poll(0)
     # Sending Asynchronously with callback
     for i in range(0, 10):
-        future = producer.produce(topic='test', key=cf.name(), value=cf.address())
+        future = producer.produce(topic='Test', key=cf.name(), value=cf.address())
         try:
             producer.flush()
         except Exception as e:

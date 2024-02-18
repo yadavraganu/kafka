@@ -1,12 +1,11 @@
-import os
+import sys
+
+sys.path.append("..")
+from config.config_parser import get_config
 from confluent_kafka import admin
 from confluent_kafka.admin import ConfigEntry, ConfigResource, AlterConfigOpType
-from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(__file__).split('admin')[0], '.env')
-load_dotenv(dotenv_path, verbose=True)
-
-conf = {'bootstrap.servers': os.environ['BOOTSTRAP_SERVERS']}
+conf = {'bootstrap.servers': get_config('BOOTSTRAP_SERVERS')}
 
 """List of config entries which needs to updated. Use AlterConfigOpType code to delete, set,append entries 0 is for 
 set operation"""

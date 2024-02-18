@@ -1,13 +1,12 @@
+import sys
+sys.path.append("..")
+from config.config_parser import get_config
 from confluent_kafka import KafkaException, Consumer, KafkaError
-import os
-from dotenv import load_dotenv
 
-dotenv_path = os.path.join(os.path.dirname(__file__).split('consumer')[0], '.env')
-load_dotenv(dotenv_path, verbose=True)
-
-kafka_conf = {'bootstrap.servers': os.environ['BOOTSTRAP_SERVERS'], 'group.id': 'Test_App', 'auto.offset.reset': 'latest'}
+kafka_conf = {'bootstrap.servers': get_config('BOOTSTRAP_SERVERS'), 'group.id': 'Test_App',
+              'auto.offset.reset': 'latest'}
 consumer = Consumer(kafka_conf)
-consumer.subscribe(['test'])
+consumer.subscribe(['Test'])
 
 try:
     Flag = True

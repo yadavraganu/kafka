@@ -1,11 +1,10 @@
-from confluent_kafka.admin import AdminClient, NewTopic
+import sys
+sys.path.append("..")
+from config.config_parser import get_config
+from confluent_kafka.admin import AdminClient
 from confluent_kafka import KafkaException
-from dotenv import load_dotenv
-import os
 
-dotenv_path = os.path.join(os.path.dirname(__file__).split('admin')[0], '.env')
-load_dotenv(dotenv_path, verbose=True)
-conf = {'bootstrap.servers': os.environ['BOOTSTRAP_SERVERS']}
+conf = {'bootstrap.servers': get_config('BOOTSTRAP_SERVERS')}
 topics = ['Test1']
 try:
     admin = AdminClient(conf)
@@ -13,7 +12,7 @@ try:
     for i, j in tc.items():
         try:
             j.result()
-            print(f'Topic {tc} deleted')
+            print(f'Topic {tc.i} deleted')
         except Exception as e:
             print("Failed to delete topic {}: {}".format(i, e))
 except KafkaException as err:

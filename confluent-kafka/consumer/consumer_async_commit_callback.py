@@ -1,3 +1,6 @@
+import sys
+sys.path.append("..")
+from config.config_parser import get_config
 from confluent_kafka import KafkaException, Consumer, KafkaError
 
 
@@ -9,10 +12,10 @@ def commit_completed(err, partitions):
             print('Committed offset {} for partition {}'.format(partition.offset, partition.partition))
 
 
-kafka_conf = {'bootstrap.servers': 'localhost:8098', 'group.id': 'Test_App', 'auto.offset.reset': 'latest',
+kafka_conf = {'bootstrap.servers': get_config('BOOTSTRAP_SERVERS'), 'group.id': 'Test_App', 'auto.offset.reset': 'earliest',
               'on_commit': commit_completed}
 consumer = Consumer(kafka_conf)
-consumer.subscribe(['test'])
+consumer.subscribe(['Test'])
 
 try:
     Flag = True
