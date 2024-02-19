@@ -1,3 +1,5 @@
 python-dotenv
 confluent_kafka
 configparser
+requests
+fastavro
