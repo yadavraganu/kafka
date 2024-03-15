@@ -1,4 +1,4 @@
-Consumer Config
+### Consumer Config
 - auto.offset.reset : What to do when there is no initial offset in Kafka or if the current offset does not exist any more on the server (e.g. because that data has been deleted)
   Valid Values:	[latest, earliest, none]
 - enable.auto.commit : If true the consumer’s offset will be periodically committed in the background.
