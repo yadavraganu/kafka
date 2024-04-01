@@ -1,7 +1,7 @@
 from configparser import ConfigParser
 import os
 
-project_path = r"C:\Users\Anurag\Vs_Code_Projects\kafka"
+project_path = r"C:\Users\Anurag\PycharmProjects\kafka"
 config_path = os.path.join(project_path, 'config.ini')
 
 
