@@ -4,7 +4,7 @@ from confluent_kafka import Producer, KafkaException
 def callback(errmsg, msg):
     if errmsg is not None:
         print("Delivery failed for Message: {} : {}".format(msg.key(), errmsg))
-        return
+        return False
     print('Message: {} successfully produced to Topic: {} Partition: [{}] at offset {}'.format(
         msg.key(), msg.topic(), msg.partition(), msg.offset()))
 
